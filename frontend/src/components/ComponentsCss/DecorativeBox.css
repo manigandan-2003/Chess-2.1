@@ -1,0 +1,37 @@
+.decorative-box {
+    background: rgba(255, 255, 255, 0.1); /* Glass effect */
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 8px;
+    backdrop-filter: blur(10px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100px; /* Adjust size as needed */
+    height: 100px; /* Adjust size as needed */
+    cursor: move; /* Indicates draggable */
+    margin: 3px; /* Space between boxes */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+
+
+.decorative-box:hover {
+    transform: scale(1.08); /* Slightly increase size on hover */
+    background-color: #ffb9b9; /* Darken background on hover */
+    border-color: #bc1a1a; /* Change border color on hover for emphasis */
+    box-shadow: 0 12px 30px rgba(241, 12, 12, 0.9); /* Red light from beneath effect */
+}
+/* GameBoard.css */
+
+
+.decorative-box.highlight {
+    border: 2px solid yellow;
+    box-shadow: 0 0 10px yellow;
+}
+
+.decorative-box.dragging {
+    transform: scale(1.08);
+    background-color: #ffb9b9;
+    border-color: #bc1a1a;
+    box-shadow: 0 12px 30px rgba(241, 12, 12, 0.9);
+}
+
