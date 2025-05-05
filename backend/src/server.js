@@ -33,6 +33,8 @@
 //     // Check if the room exists
 //     if (rooms.has(roomId)) {
 //         socket.join(roomId); // Add the socket to the existing room
+//         const initialTurn = Math.random() < 0.5 ? 'Player A' : 'Player B'; // Determine initial turn randomly
+//         socket.emit('roomJoined', { roomId, initialTurn }); // Send room ID and initial turn to the client
 //         console.log(`Socket ${socket.id} joined room: ${roomId}`);
 //     } else {
 //         console.log(`Room ${roomId} does not exist.`);
