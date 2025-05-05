@@ -202,7 +202,7 @@ const Game = ({ socket }) => {
                 setGameState(data.initialState.gameState);
                 setCurrentPlayer(data.initialState.currentPlayer);
                 setWaitingForPlayer(false);
-                setPlayer(data.players[0] === socket.id ? 'A' : 'B');
+                //setPlayer(data.players[0] === socket.id ? 'A' : 'B'); // Removed as player is set in joinRoom
             });
 
             socket.on('waitingForPlayer', (data) => {
@@ -264,7 +264,7 @@ const Game = ({ socket }) => {
         socket.emit('makeMove', roomId, newGameState, (response) => {
             if (response.error) {
                 console.error(response.error);
-                setError(response.error);
+                setError(response.error); // Added to display error from backend
                 // Optionally revert to previous state if there was an error
                 setGameState(gameState);
             } else {
