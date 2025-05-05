@@ -9,9 +9,6 @@ nodemon.json
 /.pnp
 .pnp.js
 
-# testing
-/coverage
-
 # production
 /build
 
