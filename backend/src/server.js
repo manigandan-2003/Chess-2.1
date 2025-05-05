@@ -14,56 +14,54 @@
 //     }
 // });
 
+// // Step 1: Create a room
+// function createRoom(socket) {
+//     const roomId = generateRoomId(); // Generate a unique room ID
+//     socket.join(roomId); // Add the socket to the new room
+//     return roomId; // Return the new roomId to the client
+// }
+
 // // Helper function to generate a unique room ID
 // function generateRoomId() {
 //     return 'room-' + Math.random().toString(36).substr(2, 9); // Random string
 // }
 
-// // Helper function to assign a player to team A or B
-// function assignPlayerToTeam() {
-//     return Math.random() < 0.5 ? 'A' : 'B';
-// }
-
-// // Function to create a room
-// function createRoom(socket) {
-//     const roomId = generateRoomId();
-//     socket.join(roomId);
-//     return roomId;
-// }
-
-// // Function to handle joining a room
+// // Step 2: Join a room
 // function joinRoom(socket, roomId) {
-//     const rooms = io.sockets.adapter.rooms;
+//     const rooms = io.sockets.adapter.rooms; // Get all current rooms
+
+//     // Check if the room exists
 //     if (rooms.has(roomId)) {
-//         const numPlayers = rooms.get(roomId).size;
-//         if (numPlayers < 2) {
-//             socket.join(roomId);
-//             const team = assignPlayerToTeam();
-//             const initialTurn = numPlayers === 0 ? team : (team === 'A' ? 'B' : 'A');
-//             socket.data.team = team; // Store the team assignment on the socket
-//             socket.emit('joinRoom', { roomId, team, initialTurn });
-//             if (numPlayers === 1) {
-//                 io.to(roomId).emit('startGame');
-//             }
-//         } else {
-//             socket.emit('roomFull');
-//         }
+//         socket.join(roomId); // Add the socket to the existing room
+//         const initialTurn = Math.random() < 0.5 ? 'Player A' : 'Player B'; // Determine initial turn randomly
+//         socket.emit('roomJoined', { roomId, initialTurn }); // Send room ID and initial turn to the client
+//         console.log(`Socket ${socket.id} joined room: ${roomId}`);
 //     } else {
-//         socket.emit('roomNotFound');
+//         console.log(`Room ${roomId} does not exist.`);
 //     }
 // }
 
 // io.on('connection', (socket) => {
-//     socket.on('createRoom', () => {
-//         const roomId = createRoom(socket);
-//         socket.emit('roomCreated', roomId);
+//     console.log('New client connected:', socket.id);
+
+//     socket.on('error', (error) => {
+//         console.error('Socket error:', error);
 //     });
 
+//     // Listen for room creation request
+//     socket.on('createRoom', () => {
+//         const roomId = createRoom(socket);
+//         socket.emit('roomCreated', roomId); // Send the new roomId back to the client
+//         console.log(`Room created: ${roomId}`);
+//     });
+
+//     // Listen for a request to join a room
 //     socket.on('joinRoom', (roomId) => {
 //         joinRoom(socket, roomId);
 //     });
 
+//     // Handle socket disconnection
 //     socket.on('disconnect', () => {
-//         // Handle disconnection logic here
+//         console.log(`Socket ${socket.id} disconnected`);
 //     });
-// });
+// })
