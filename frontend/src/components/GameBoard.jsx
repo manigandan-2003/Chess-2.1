@@ -124,6 +124,11 @@ const GameBoard = () => {
         if (character && character.player === currentPlayer && isValidMove(character, oldPosition, newPosition, gameState)) {
             const updatedGameState = { ...gameState };
 
+            // Remove captured piece
+            if (capturedCharacter) {
+                delete updatedGameState[newPosition];
+            }
+
             // Update the game state with the new position
             updatedGameState[newPosition] = updatedGameState[oldPosition];
             delete updatedGameState[oldPosition];
