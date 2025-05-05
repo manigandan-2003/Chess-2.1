@@ -1,5 +1,5 @@
 function initializeGame() {
-    return {
+    const gameState = {
         'A1': { type: 'Pawn', player: 'A' },
         'B1': { type: 'Pawn', player: 'A' },
         'C1': { type: 'Hero1', player: 'A' },
@@ -10,6 +10,10 @@ function initializeGame() {
         'C5': { type: 'Hero1', player: 'B' },
         'D5': { type: 'Hero2', player: 'B' },
         'E5': { type: 'Pawn', player: 'B' },
+    };
+    return {
+        gameState,
+        currentPlayer: 'A'
     };
 }
 

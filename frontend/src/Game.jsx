@@ -179,7 +179,7 @@ const Game = ({ socket }) => {
     const { roomId } = useParams();
     const [gameState, setGameState] = useState(null);
     const [player, setPlayer] = useState(null);
-    const [currentPlayer, setCurrentPlayer] = useState('A');
+    const [currentPlayer, setCurrentPlayer] = useState(null); // Initialize to null
     const [error, setError] = useState('');
     const [waitingForPlayer, setWaitingForPlayer] = useState(false);
     
@@ -188,11 +188,12 @@ const Game = ({ socket }) => {
         if (socket) {
             // Join room with a callback to handle errors or set player information
             socket.emit('joinRoom', roomId, (response) => {
-                const { error, player } = response;
+                const { error, player, initialTurn } = response; // Receive initialTurn
                 if (error) {
                     setError(error);
                 } else {
                     setPlayer(player);
+                    setCurrentPlayer(initialTurn); // Set initial turn
                 }
             });
 
