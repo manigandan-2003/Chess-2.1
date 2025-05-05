@@ -123,10 +123,23 @@ const GameBoard = () => {
         // Ensure move is valid and it's the correct player's turn
         if (character && character.player === currentPlayer && isValidMove(character, oldPosition, newPosition, gameState)) {
             const updatedGameState = { ...gameState };
+            let isObstructed = false;
 
-            // Update the game state with the new position
-            updatedGameState[newPosition] = updatedGameState[oldPosition];
-            delete updatedGameState[oldPosition];
+            //Check for obstruction for two-step moves
+            if(Math.abs(parseInt(oldPosition[1])-parseInt(newPosition[1])) === 2 || Math.abs(oldPosition.charCodeAt(0)-newPosition.charCodeAt(0))===2){
+                const midPointRow = (parseInt(oldPosition[1]) + parseInt(newPosition[1])) / 2;
+                const midPointCol = String.fromCharCode((oldPosition.charCodeAt(0) + newPosition.charCodeAt(0)) / 2);
+                const midPoint = `${midPointCol}${midPointRow}`;
+                isObstructed = !!updatedGameState[midPoint];
+            }
+
+            // Update the game state with the new position only if not obstructed, or if capturing
+            if(!isObstructed || capturedCharacter){
+                updatedGameState[newPosition] = updatedGameState[oldPosition];
+                delete updatedGameState[oldPosition];
+            } else {
+                return; // Prevent the move if obstructed and not capturing
+            }
 
             // Apply the updated game state
             setGameState(updatedGameState);
@@ -150,6 +163,7 @@ const GameBoard = () => {
                 oldPosition,
                 newPosition,
                 captured: !!capturedCharacter,
+                isObstructed: isObstructed, // Added obstruction information
                 gameState: updatedGameState, // Ensure the latest state is emitted
             });
     
