@@ -13,7 +13,7 @@ function initializeGame() {
     };
     return {
         gameState,
-        currentPlayer: 'A'
+        currentPlayer: 'B'
     };
 }
 
