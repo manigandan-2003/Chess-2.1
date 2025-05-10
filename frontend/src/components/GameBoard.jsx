@@ -209,7 +209,7 @@ const GameBoard = () => {
         setGameState(initialGameState);
         setMoveHistory([]);
         setHighlightedCells([]);
-        setCurrentPlayer('B');
+        setCurrentPlayer('A');
     };
 
     const labels = [];
