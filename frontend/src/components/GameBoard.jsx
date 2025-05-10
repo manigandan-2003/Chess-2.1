@@ -30,7 +30,7 @@ const GameBoard = () => {
     const [highlightedCells, setHighlightedCells] = useState([]);
     const [moveHistory, setMoveHistory] = useState([]);
     const [currentPlayer, setCurrentPlayer] = useState('B'); // Changed initial player to 'B'
-    
+
     useEffect(() => {
         socket.on('connect', () => {
             console.log('Connected to WebSocket server');
